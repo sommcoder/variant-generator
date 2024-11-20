@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 import {
   reactExtension,
   useApi,
@@ -6,18 +6,33 @@ import {
   BlockStack,
   Button,
   Text,
-} from '@shopify/ui-extensions-react/admin';
+  MoneyField,
+} from "@shopify/ui-extensions-react/admin";
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
-const TARGET = 'admin.product-details.action.render';
+const TARGET = "admin.product-details.action.render";
 
 export default reactExtension(TARGET, () => <App />);
 
 function App() {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
-  const {i18n, close, data} = useApi(TARGET);
-  console.log({data});
-  const [productTitle, setProductTitle] = useState('');
+  const { i18n, close, data } = useApi(TARGET);
+  console.log({ data });
+  const [productTitle, setProductTitle] = useState("");
+
+  // MoneyField
+  const [value, setValue] = useState({ amount: 100, currencyCode: "USD" });
+
+  const handleChangeValue = (ev) => {
+    console.log("ev:", ev);
+
+    setValue((prev) => {
+      const newState = prev;
+
+      // return { ...newState, amount: }
+    });
+  };
+
   // Use direct API calls to fetch data from Shopify.
   // See https://shopify.dev/docs/api/admin-graphql for more information about Shopify's GraphQL API
   useEffect(() => {
@@ -28,7 +43,7 @@ function App() {
             title
           }
         }`,
-        variables: {id: data.selected[0].id},
+        variables: { id: data.selected[0].id },
       };
 
       const res = await fetch("shopify:admin/api/graphql.json", {
@@ -37,7 +52,7 @@ function App() {
       });
 
       if (!res.ok) {
-        console.error('Network error');
+        console.error("Network error");
       }
 
       const productData = await res.json();
@@ -50,7 +65,7 @@ function App() {
       primaryAction={
         <Button
           onPress={() => {
-            console.log('saving');
+            console.log("saving");
             close();
           }}
         >
@@ -60,7 +75,7 @@ function App() {
       secondaryAction={
         <Button
           onPress={() => {
-            console.log('closing');
+            console.log("closing");
             close();
           }}
         >
@@ -70,8 +85,9 @@ function App() {
     >
       <BlockStack>
         {/* Set the translation values for each supported language in the locales directory */}
-        <Text fontWeight="bold">{i18n.translate('welcome', {TARGET})}</Text>
-        <Text>Current product: {productTitle}</Text>
+        <Text fontWeight="bold">{i18n.translate("welcome", { TARGET })}</Text>
+
+        <MoneyField label="Price per Value" onChange={handleChangeValue} />
       </BlockStack>
     </AdminAction>
   );

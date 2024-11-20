@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "ec0327bc3c89921c3e58dc514072c4f0"
-application_url = "https://inserted-promotes-hampshire-desirable.trycloudflare.com"
+application_url = "https://competitions-doctrine-chronicles-projectors.trycloudflare.com"
 embedded = true
 name = "variant-generator"
 handle = "variant-generator"
@@ -19,9 +19,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://inserted-promotes-hampshire-desirable.trycloudflare.com/auth/callback",
-  "https://inserted-promotes-hampshire-desirable.trycloudflare.com/auth/shopify/callback",
-  "https://inserted-promotes-hampshire-desirable.trycloudflare.com/api/auth/callback"
+  "https://competitions-doctrine-chronicles-projectors.trycloudflare.com/auth/callback",
+  "https://competitions-doctrine-chronicles-projectors.trycloudflare.com/auth/shopify/callback",
+  "https://competitions-doctrine-chronicles-projectors.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
