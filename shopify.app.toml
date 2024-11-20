@@ -1,0 +1,32 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "ec0327bc3c89921c3e58dc514072c4f0"
+application_url = "https://inserted-promotes-hampshire-desirable.trycloudflare.com"
+embedded = true
+name = "variant-generator"
+handle = "variant-generator"
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://inserted-promotes-hampshire-desirable.trycloudflare.com/auth/callback",
+  "https://inserted-promotes-hampshire-desirable.trycloudflare.com/auth/shopify/callback",
+  "https://inserted-promotes-hampshire-desirable.trycloudflare.com/api/auth/callback"
+]
+
+[pos]
+embedded = false
+
+[build]
+dev_store_url = "newteststore02817.myshopify.com"
+automatically_update_urls_on_dev = true
