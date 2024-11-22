@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import "@shopify/polaris-tokens/css/styles.css";
 import {
   reactExtension,
   useApi,
   AdminAction,
-  BlockStack,
   Button,
-  Text,
-  MoneyField,
+  Section,
+  Badge,
+  InlineStack,
+  BlockStack,
+  Pressable,
+  Checkbox,
+  Divider,
+  Heading,
 } from "@shopify/ui-extensions-react/admin";
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
@@ -23,6 +29,10 @@ function App() {
   // MoneyField
   const [value, setValue] = useState({ amount: 100, currencyCode: "USD" });
 
+  const [active, setActive] = useState(false);
+
+  const toggleModal = useCallback(() => setActive((active) => !active), []);
+
   const handleChangeValue = (ev) => {
     console.log("ev:", ev);
 
@@ -33,6 +43,24 @@ function App() {
     });
   };
 
+  const rows = [
+    ["Emerald Silk Gown", "$875.00", 124689, 140, "$122,500.00"],
+    ["Mauve Cashmere Scarf", "$230.00", 124533, 83, "$19,090.00"],
+    [
+      "Navy Merino Wool Blazer with khaki chinos and yellow belt",
+      "$445.00",
+      124518,
+      32,
+      "$14,240.00",
+    ],
+  ];
+
+  const [seqMenu, toggleSeqMenu] = (useState < "none") | ("auto" > "none");
+  const handleSeqMenuClick = () =>
+    toggleSeqMenu((prev) => {
+      console.log("pressable click:", prev);
+      return prev === "none" ? "auto" : "none";
+    });
   // Use direct API calls to fetch data from Shopify.
   // See https://shopify.dev/docs/api/admin-graphql for more information about Shopify's GraphQL API
   useEffect(() => {
@@ -61,34 +89,43 @@ function App() {
   }, [data.selected]);
   return (
     // The AdminAction component provides an API for setting the title and actions of the Action extension wrapper.
-    <AdminAction
-      primaryAction={
-        <Button
-          onPress={() => {
-            console.log("saving");
-            close();
-          }}
-        >
-          Done
-        </Button>
-      }
-      secondaryAction={
-        <Button
-          onPress={() => {
-            console.log("closing");
-            close();
-          }}
-        >
-          Close
-        </Button>
-      }
-    >
-      <BlockStack>
-        {/* Set the translation values for each supported language in the locales directory */}
-        <Text fontWeight="bold">{i18n.translate("welcome", { TARGET })}</Text>
 
-        <MoneyField label="Price per Value" onChange={handleChangeValue} />
-      </BlockStack>
+    // ! Polaris says don't let action content exceed 1200px and no more than 2 steps of pagination
+    <AdminAction
+      title="Assign Variant Group"
+      // assign will SAVE the metaobject as a metafield to the Product id and then will MUTATE the product's variants based
+      primaryAction={<Button onPress={() => {}}>assign</Button>}
+      secondaryAction={<Button onPress={() => {}}>close</Button>}
+    >
+      <Pressable
+        padding="base"
+        display={seqMenu}
+        paddingInlineStart="small"
+        maxInlineSize={60}
+        onPress={handleSeqMenuClick}
+        onClick={handleSeqMenuClick}
+      >
+        <Section>
+          <Checkbox>
+            <Heading size={5}>Variant Group #1</Heading>
+          </Checkbox>
+          <Divider />
+          <BlockStack blockGap="small" padding="base">
+            <InlineStack>
+              <Badge tone="info">name</Badge>
+              <Badge tone="info">$10.00</Badge>
+            </InlineStack>
+            <InlineStack>
+              <Badge tone="info">name</Badge>
+              <Badge tone="info">$10.00</Badge>
+            </InlineStack>
+            <InlineStack>
+              <Badge tone="info">name</Badge>
+              <Badge tone="info">$10.00</Badge>
+            </InlineStack>
+          </BlockStack>
+        </Section>
+      </Pressable>
     </AdminAction>
   );
 }

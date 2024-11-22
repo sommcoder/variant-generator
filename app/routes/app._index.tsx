@@ -19,7 +19,6 @@ import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
-
   return null;
 };
 
@@ -96,9 +95,11 @@ export default function Index() {
   const fetcher = useFetcher<typeof action>();
 
   const shopify = useAppBridge();
+
   const isLoading =
     ["loading", "submitting"].includes(fetcher.state) &&
     fetcher.formMethod === "POST";
+
   const productId = fetcher.data?.product?.id.replace(
     "gid://shopify/Product/",
     "",
@@ -109,11 +110,12 @@ export default function Index() {
       shopify.toast.show("Product created");
     }
   }, [productId, shopify]);
+
   const generateProduct = () => fetcher.submit({}, { method: "POST" });
 
   return (
     <Page>
-      <TitleBar title="Remix app template">
+      <TitleBar title="Select Product">
         <button variant="primary" onClick={generateProduct}>
           Generate a product
         </button>
