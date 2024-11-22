@@ -15,10 +15,20 @@ import {
   Heading,
 } from "@shopify/ui-extensions-react/admin";
 
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 const TARGET = "admin.product-details.action.render";
 
 export default reactExtension(TARGET, () => <App />);
+
+export function loader({ request }: LoaderFunctionArgs) {
+  //
+}
+
+export function action({ request }: ActionFunctionArgs) {
+  //
+}
 
 function App() {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
@@ -55,7 +65,8 @@ function App() {
     ],
   ];
 
-  const [seqMenu, toggleSeqMenu] = (useState < "none") | ("auto" > "none");
+  const [seqMenu, toggleSeqMenu] = useState<"none" | "auto">("none");
+
   const handleSeqMenuClick = () =>
     toggleSeqMenu((prev) => {
       console.log("pressable click:", prev);

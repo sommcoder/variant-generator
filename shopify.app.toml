@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "ec0327bc3c89921c3e58dc514072c4f0"
-application_url = "https://cameroon-barnes-he-shine.trycloudflare.com"
+application_url = "https://keep-tremendous-survivors-philips.trycloudflare.com"
 embedded = true
 name = "Variant Generator & Groupings"
 handle = "variant-generator"
@@ -19,9 +19,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://cameroon-barnes-he-shine.trycloudflare.com/auth/callback",
-  "https://cameroon-barnes-he-shine.trycloudflare.com/auth/shopify/callback",
-  "https://cameroon-barnes-he-shine.trycloudflare.com/api/auth/callback"
+  "https://keep-tremendous-survivors-philips.trycloudflare.com/auth/callback",
+  "https://keep-tremendous-survivors-philips.trycloudflare.com/auth/shopify/callback",
+  "https://keep-tremendous-survivors-philips.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
